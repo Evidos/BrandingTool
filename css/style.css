@@ -1,0 +1,240 @@
+.nav-tabs {
+  border-bottom: 0px;
+}
+
+.height-100 {
+  height: 100%;
+}
+
+.document-viewer {
+  background-color: #f0f0f0;
+}
+.content-regular {
+  max-width: 35em;
+  margin: auto;
+  margin-bottom: 80px;
+  color: #6c6c6c;
+}
+
+.sidebar {
+	background-color: #fff;
+	color: #6c6c6c;
+}
+
+.mobile-row {
+  height: 80px;
+}
+
+.sample-document {
+  background-color: #fff;
+  width: 80%;
+  max-height: 70%;
+  margin: auto;
+  margin-top: 2em;
+  padding: 1em;
+  border-radius: 3px;
+  border: 1px solid #e3e3e3;
+  overflow: hidden;
+}
+
+/* Bottom Navigation */
+.navigation {
+    padding-top: 7px;
+    padding-bottom: 15px;
+    margin-top: 1em;
+    height: 64px;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background: #5b5d5d;
+}
+.navigation .next {
+    position: absolute;
+    right: 0;
+}
+
+.navigation .button-lined {
+    float: left;
+    min-width: 150px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 1em;
+    text-decoration: none;
+    text-align: left;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+		background-color: transparent;
+    border: 1px solid #fff;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin: 0 .5em;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+		color: #fff;
+}
+
+.navigation .button-lined:hover {
+	color: #fff ;
+	border-color: #fff ;
+}
+
+.navigation .button-solid {
+    float: left;
+    min-width: 150px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 1em;
+    text-decoration: none;
+    text-align: left;
+    display: inline-block;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+		background-color: #fff;
+    border: 1px solid #fff;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    margin: 0 .5em;
+    outline: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+		color: #418c00;
+}
+
+
+/* Branding Top right */
+.brand {
+  background-color: #3e899f;
+	color: #fff;
+  text-align: center;
+}
+
+.brand .logo {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.brand .icon {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle;
+}
+
+.brand-desktop {
+  width: 100%;
+  height: 140px;
+}
+
+.brand-mobile {
+  height: 100%;
+  width: 80px;
+  float: right;
+}
+
+.panel-row {
+  margin-left: 0px;
+  margin-right: 0px;
+  border-radius: 3px;
+  border: 1px solid #e3e3e3;
+}
+
+/* Sidebar */
+.controls {
+	padding: 1em;
+}
+
+	.controls .indicator {
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		position: relative;
+	}
+
+		.controls .indicator:before {
+			content: '';
+			height: 100%;
+			width: 2px;
+			display: block;
+			margin-left: .25em;
+			background: #f0f0f0;
+			position: absolute;
+		}
+
+		.controls .indicator li {
+			padding: .75em 0;
+			margin-left: 1.5em;
+			margin-right: -1em;
+			border-bottom: 1px solid #f0f0f0;
+		}
+
+			.controls .indicator li:last-child {
+				border: none;
+			}
+
+			.controls .indicator li:after {
+				content: '';
+				height: 8px;
+				width: 8px;
+				display: inline-block;
+				border: 1px solid #6c6c6c;
+				-webkit-border-radius: 50%;
+				border-radius: 50%;
+				position: absolute;
+				left: 0;
+				margin-top: .25em;
+				z-index: 1;
+				background: #fff;
+			}
+
+			.controls .indicator li.current-step:after {
+				background: #6c6c6c;
+			}
+
+	.controls .select-language {
+		margin: 0 -1em 1em -1em;
+		padding: 0 1em 1em 1em;
+		border-bottom: 1px solid #e3e3e3;
+	}
+
+.about {
+	font-size: smaller;
+	padding: 0 1em;
+	position: absolute;
+	bottom: 0;
+}
+
+.about img {
+ max-width: 50%;
+ width: auto;
+}
+.about a {
+ color: #6c6c6c;
+}
+
+/* remove spacing between middle columns */
+.row.no-gutter [class*='col-']:not(:first-child):not(:last-child) {
+  padding-right:0;
+  padding-left:0;
+}
+/* remove right padding from first column */
+.row.no-gutter [class*='col-']:first-child {
+  padding-right:0;
+}
+/* remove left padding from first column */
+.row.no-gutter [class*='col-']:last-child {
+  padding-left:0;
+  padding-right:0;
+}

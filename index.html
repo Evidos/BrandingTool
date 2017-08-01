@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <link href="css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/bootstrap-colorpicker.min.css">
+  <link rel="stylesheet" href="css/style.css" media="screen" title="no title" charset="utf-8">
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+  <script src="js/bootstrap-colorpicker.min.js"></script>
+  <script src="js/colorpicker-component.js"></script>
+
+  <script>
+  $(document).ready( function() {
+    $('.colorinput').colorpicker(
+      {
+        format: 'hex'
+      }
+    );
+    // Attach functions to events, for automatic changes
+    // Brand color
+    $('#brandcolor-option').on('changeColor',function() {
+      changeColor('brand',['background'],'brandcolor-option');
+    });
+    $('#brandforegroundcolor-option').on('changeColor',function() {
+      changeColor('brand',['color'],'brandforegroundcolor-option');
+    });
+
+    // Document viewer
+    $('#docbackground-option').on('changeColor',function() {
+      changeColor('document-viewer',['background'],'docbackground-option');
+    });
+    $('#contentforeground-option').on('changeColor',function() {
+      changeColor('content-regular',['color'],'contentforeground-option');
+      changeColor('content-divider',['background-color'],'contentforeground-option');
+    });
+
+    // Navigation bar
+    $('#navigationbar-option').on('changeColor',function() {
+      changeColor('navigation',['background'],'navigationbar-option');
+    });
+    $('#navigationbarforeground-option').on('changeColor',function() {
+      changeColor('button-solid', ['border-color'], 'navigationbarforeground-option');
+    });
+
+    // Sidebar/topbar
+    $('#sidebar-option').on('changeColor',function() {
+      changeColor('sidebar',['background'],'sidebar-option');
+    });
+    $('#sidebarforeground-option').on('changeColor',function() {
+      changeColor('sidebar',['color'],'sidebarforeground-option');
+    });
+
+    // Primary Buttons
+    $('#primary-option').on('changeColor',function() {
+      changeColor('button-solid',['background-color'],'primary-option');
+      document.getElementById('primaryhover-option').disabled = false;
+    });
+    $('#primarytext-option').on('changeColor',function() {
+      changeColor('button-solid',['color'],'primarytext-option');
+      document.getElementById('primarytexthover-option').disabled = false;
+    });
+
+    $('#primaryhover-option').on('changeColor',function() {
+      changeHoverColor('button-solid',['background-color'],'primaryhover-option');
+    });
+    $('#primarytexthover-option').on('changeColor',function() {
+      changeHoverColor('button-solid',['color'],'primarytexthover-option');
+    });
+
+    // Secondary Buttons
+    $('#secondary-option').on('changeColor',function() {
+      changeColor('button-lined',['background-color'],'secondary-option');
+      document.getElementById('secondaryhover-option').disabled = false;
+    });
+    $('#secondarytext-option').on('changeColor',function() {
+      changeColor('button-lined',['color', 'border-color'],'secondarytext-option');
+      document.getElementById('secondarytexthover-option').disabled = false;
+    });
+
+    $('#secondaryhover-option').on('changeColor',function() {
+      changeHoverColor('button-lined',['background-color'],'secondaryhover-option');
+    });
+    $('#secondarytexthover-option').on('changeColor',function() {
+      changeHoverColor('button-lined',['color', 'border-color'],'secondarytexthover-option');
+    });
+
+    // Export settings
+    $('#export-button').on('click', function() {
+      exportToYAML();
+    })
+    $('#export-hide').on('click', function() {
+      hideExportDiv();
+    })
+    $('#export-copy').on('click', function() {
+      copyExport();
+    })
+  });
+ </script>
+
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Edit Branding POC</h3>
+          </div>
+          <div class="panel-body">
+            <form class="form-horizontal">
+              <div class="row">
+                <div class="col-md-4">
+
+                  <!-- Brand color -->
+                  <label for="brandcolor-option">Branding voorgrond kleur (text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#ffffff" id="brandforegroundcolor-option" name="brandforegroundcolor-option">
+                  </div>
+
+                  <label for="brandcolor-option">Branding achtergrond kleur:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#3e899f" id="brandcolor-option" name="brandcolor-option">
+                  </div>
+
+                  <!-- Logo Image -->
+                  <label for="logoimg-option">Logo afbeelding (desktop):</label><br>
+                  <span class="btn btn-default btn-file">
+                    <input type="file" name="logoimg-option" id="logoimg-option" onchange="changeimg('logo','logoimg-option')">
+                  </span>
+                </div>
+
+                <div class="col-md-4">
+
+                  <!-- Sidebar/Topbar Color -->
+                  <label for="brandcolor-option">Indicator voorgrond kleur (text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#6c6c6c" id="sidebarforeground-option" name="sidebarforeground-option" >
+                  </div>
+
+                  <label for="brandcolor-option">Indicator achtergrond kleur:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#ffffff" id="sidebar-option" name="sidenbar-option">
+                  </div>
+
+                  <!-- Icon Image -->
+                  <label for="iconimg-option">Icon afbeelding (mobiel):</label><br>
+                  <span class="btn btn-default btn-file">
+                    <input type="file" name="iconimg-option" id="iconimg-option" onchange="changeimg('icon','iconimg-option')">
+                  </span>
+                </div>
+
+                <div class="col-md-4">
+
+                  <!-- Navigationbar Color -->
+                  <label for="brandcolor-option">Navigatie voorgrond kleur (prim. button border):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#ffffff" id="navigationbarforeground-option" name="navigationbarforeground-option">
+                  </div>
+
+                  <label for="brandcolor-option">Navigatie achtergrond kleur:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#5b5d5d" id="navigationbar-option" name="navigationbar-option">
+                  </div>
+
+                </div>
+              </div>
+              <br>
+              <em><strong>Let op:</strong> Hover kleuren kunnen pas ingesteld worden na de normale kleuren</em>
+              <br>
+              <div class="row">
+                <div class="col-md-4">
+                  <!-- primary button Color -->
+                  <label for="brandcolor-option">primary button (achtergrond):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#ffffff" id="primary-option" name="primary-option">
+                  </div>
+
+                  <label for="brandcolor-option">primary button (text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#418c00" id="primarytext-option" name="primarytext-option">
+                  </div>
+
+                  <label for="brandcolor-option">primary button hover (achtergrond):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#ffffff" id="primaryhover-option" name="primaryhover-option" disabled="true">
+                  </div>
+
+                  <label for="brandcolor-option">primary button hover (text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#418c00" id="primarytexthover-option" name="primarytexthover-option" disabled="true">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <!-- primary button Color -->
+                  <label for="brandcolor-option">Secondary button (achtergrond):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#5b5d5d" id="secondary-option" name="secondary-option">
+                  </div>
+
+                  <label for="brandcolor-option">Secondary button (text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#e3e3e3" id="secondarytext-option" name="secondarytext-option">
+                  </div>
+
+                  <label for="brandcolor-option">Secondary button hover (achtergrond):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#5b5d5d" id="secondaryhover-option" name="secondaryhover-option" disabled="true">
+                  </div>
+
+                  <label for="brandcolor-option">secondary button hover (text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#ffffff" id="secondarytexthover-option" name="secondarytexthover-option" disabled="true">
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <!-- Document Viewer Color -->
+                  <label for="brandcolor-option">Content achtergrond kleur:</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#f0f0f0" id="docbackground-option" name="docbackground-option">
+                  </div>
+                  <label for="brandcolor-option">Content voorgrond kleur (verification steps text):</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control colorinput" value="#6c6c6c" id="contentforeground-option" name="contentforeground-option">
+                  </div>
+                  <br>
+                  <a class="btn btn-success" id="export-button">Export settings</a>
+                </div>
+              </div>
+            </form>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="containter" id="export" style="display: none;">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Export Settings</h3>
+            </div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <textarea id="export-field" style="width: 100%; height: 180px;"></textarea>
+                  <a class="btn btn-success" id="export-copy">Copy</a>
+                  <a class="btn btn-warning" id="export-hide">Hide</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+    <div>
+      <h2>Branding Preview</h2>
+      <ul class="nav nav-tabs">
+        <li class="active"><a data-toggle="tab" href="#preview1">Desktop Preview</a></li>
+        <li><a data-toggle="tab" href="#preview2">Mobiel Preview</a></li>
+      </ul>
+
+      <div class="tab-content">
+        <div id="preview1" class="tab-pane fade in active">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div>
+                <div class="row no-gutter panel-row" style="height: 700px;">
+                  <div class="col-xs-9 height-100 document-viewer" style="background: #f0f0f0;">
+                    <div class="sample-document">
+                      <h1>Sample Document</h1>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat urna metus, vitae dictum libero dictum nec. Aenean iaculis dolor in dapibus auctor. Nullam nibh ex, sagittis at neque et, volutpat maximus mi. Integer at auctor nisi. Vivamus vestibulum sem eleifend libero congue scelerisque. Phasellus feugiat vestibulum turpis sed ullamcorper. Maecenas aliquet magna nec urna suscipit rhoncus. Donec sit amet tellus eget ante imperdiet fringilla. Sed ultricies nibh vitae quam bibendum, maximus malesuada metus aliquam. Duis fringilla est eros, eleifend imperdiet tortor iaculis ultrices. Fusce cursus scelerisque felis ac venenatis. Mauris arcu mi, pellentesque eget commodo eget, faucibus nec ante. Cras nulla ante, aliquet vitae bibendum ac, commodo nec dolor.</p>
+                    </div>
+                    <div class="content-regular">
+                      <br>
+                      <p><h3>Sample Authenticatie</h3>This is the text color used for verification steps.</p>
+                      <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat urna metus, vitae dictum libero dictum nec. Aenean iaculis dolor in dapibus auctor.</p>
+                    </div>
+                    <nav class="navigation">
+                      <span class="back">
+                        <a class="button-lined">Terug</a>
+                      </span>
+                      <span class="next">
+                        <a class="button-lined">Niet akkoord</a>
+                        <a class="button-solid" style="background-color: rgb(255, 255, 255);">Volgende</a>
+                      </span>
+                    </nav>
+                  </div>
+                  <div class="col-xs-3 height-100 sidebar">
+                    <div class="brand brand-desktop">
+                      <span class="helper"></span>
+                      <img src="img/branding/signhost-logo.png" class="logo" id="logo" alt="Signhost Logo">
+                    </div>
+                    <div class="controls">
+                      <div class="select-language"
+                      <a href="">Nederlands (Nederland)</a>
+                    </div>
+                    <ul class="indicator">
+                      <li class="current-step">Bekijken</li>
+                      <li>Ondertekenen</li>
+                      <li>Afronden</li>
+                    </ul>
+                  </div>
+                  <div class="about">
+                    <p><a href="#" target="_blank"><img src="img/branding/signhost-logo-small.png" alt="Signhost Logo"></a></p>
+                    <p><a href="#" target="_blank">Wat is een digitale handtekening?</a></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div id="preview2" class="tab-pane fade">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div>
+              <div class="row no-gutter panel-row" style="height: 700px; width: 500px; margin: auto;">
+                <div class="col-xs-12 height-100 document-viewer" style="background: #f0f0f0;">
+                  <div class="mobile-row sidebar">
+                    <div class="brand brand-mobile">
+                      <span class="helper"></span>
+                      <img src="img/branding/evidos-icon.png" class="icon" id="icon" alt="Signhost Icon">
+                    </div>
+                  </div>
+                  <div class="sample-document">
+                    <h1>Sample Document</h1>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam volutpat urna metus, vitae dictum libero dictum nec. Aenean iaculis dolor in dapibus auctor. Nullam nibh ex, sagittis at neque et, volutpat maximus mi. Integer at auctor nisi. Vivamus vestibulum sem eleifend libero congue scelerisque. Phasellus feugiat vestibulum turpis sed ullamcorper. Maecenas aliquet magna nec urna suscipit rhoncus. Donec sit amet tellus eget ante imperdiet fringilla. Sed ultricies nibh vitae quam bibendum, maximus malesuada metus aliquam. Duis fringilla est eros, eleifend imperdiet tortor iaculis ultrices. Fusce cursus scelerisque felis ac venenatis. Mauris arcu mi, pellentesque eget commodo eget, faucibus nec ante. Cras nulla ante, aliquet vitae bibendum ac, commodo nec dolor.</p>
+                  </div>
+                  <nav class="navigation">
+                    <span class="back">
+                      <a class="button-lined">Niet akkoord</a>
+                    </span>
+                    <span class="next">
+                      <a class="button-solid" style="background-color: rgb(255, 255, 255);">Volgende</a>
+                    </span>
+                  </nav>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/branding.js"></script>
+</body>
+</html>
