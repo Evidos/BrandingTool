@@ -108,7 +108,7 @@ function writeExportData(values) {
                     '  foreground-color: \'' + $('#sidebarforeground-option').val()+ '\'',
                     '  background-color: \'' + $('#sidebar-option').val()+ '\'',
                     '',
-                    'content-area',
+                    'content-area:',
                     '  foreground-color: \'' + $('#contentforeground-option').val()+ '\'',
                     '  background-color: \'' + $('#docbackground-option').val()+ '\'',
                     '',
